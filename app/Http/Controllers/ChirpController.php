@@ -2,40 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Chirp;
+use App\Models\Chirp; // dit zorgt ervoor dat je de Chirp model kan gebruiken
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ChirpController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
     public function index()
     {
-        return Inertia::render('Chirps/Index', [
-            'chirps' => Chirp::with('user:id,name')->latest()->get(),
+        return Inertia::render('Chirps/Index', [  //renderen betekend dat je een opgemaakte pagina aanmaakt. In dit geval de index pagina van chirps
+            'chirps' => Chirp::with('user:id,name')->latest()->get(),  //with betekend dat je de user id en name wilt zien. latest betekend dat je de nieuwste chirps bovenaan wilt zien. get betekend dat je alle chirps wilt zien adhv hetgene wat je hebt oppgevraagd.
         ]);
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    //Toegevoegd zodat het bericht (chirp) nu gevalideerd wordt
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -49,35 +34,16 @@ class ChirpController extends Controller
         return redirect(route('chirps.index'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Chirp  $chirp
-     * @return \Illuminate\Http\Response
-     */
     public function show(Chirp $chirp)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Chirp  $chirp
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Chirp $chirp)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Chirp  $chirp
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Chirp $chirp)
     {
         $this->authorize('update', $chirp);
@@ -91,12 +57,6 @@ class ChirpController extends Controller
         return redirect(route('chirps.index'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Chirp  $chirp
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Chirp $chirp)
     {
         $this->authorize('delete', $chirp);

@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Models\Chirp;
+use App\Models\Chirp; //toegevoegd zodat je de chirp kan gebruiken/benaderen
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Str;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -11,38 +11,21 @@ use Illuminate\Notifications\Notification;
 
 class NewChirp extends Notification
 {
-    use Queueable;
+    use Queueable; //Queueable betekend dat je een notificatie kan queue in de database, dus het wordt niet allemaal tegelijk verstuurd
 
-    /**
-     * Create a new notification instance.
-     *
-     * @return void
-     */
     public function __construct(public Chirp $chirp)
     {
         //
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
     public function via($notifiable)
     {
         return ['mail'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+        return (new MailMessage) //inhoud van de mail hieronder
             ->subject("New Chirp from {$this->chirp->user->name}")
             ->greeting("New Chirp from {$this->chirp->user->name}")
             ->line(Str::limit($this->chirp->message, 50))
@@ -50,12 +33,6 @@ class NewChirp extends Notification
             ->line('Thank you for using our application!');
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
     public function toArray($notifiable)
     {
         return [

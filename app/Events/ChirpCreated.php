@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Models\Chirp;
+use App\Models\Chirp; //zodat je de Chirp kan gebruiken
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -15,20 +15,12 @@ class ChirpCreated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
-    public function __construct(public Chirp $chirp)    {
+    // __construct is een speciale functie binnen een class die automatisch wordt uitgevoerd als je een nieuwe instantie van de class maakt. Instantie betekend dat je een nieuwe variabele maakt van een class
+    public function __construct(public Chirp $chirp) //dit verstuurd de chirp naar het event en verstuurd dan de notificatie
+    {
         //
     }
 
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
     public function broadcastOn()
     {
         return new PrivateChannel('channel-name');

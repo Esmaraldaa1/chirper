@@ -10,83 +10,36 @@ class ChirpPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can view any models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
     public function viewAny(User $user)
     {
         //
     }
 
-    /**
-     * Determine whether the user can view the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Chirp  $chirp
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
     public function view(User $user, Chirp $chirp)
     {
         //
     }
 
-    /**
-     * Determine whether the user can create models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
     public function create(User $user)
     {
         //
     }
 
-    /**
-     * Determine whether the user can update the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Chirp  $chirp
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function update(User $user, Chirp $chirp)
+    public function update(User $user, Chirp $chirp) //update betekend dat je (alleen de gebruiker) een chirp kan updaten/aanpassen
     {
-        return $chirp->user()->is($user);
+        return $chirp->user()->is($user); //is betekend dat je de gebruiker wilt vergelijken met de chirp
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Chirp  $chirp
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function delete(User $user, Chirp $chirp)
+    public function delete(User $user, Chirp $chirp) // alleen de gebruiker kan een chirp verwijderen
     {
-        return $this->update($user, $chirp);
+        return $this->update($user, $chirp); //this betekend dat je deze functie update wilt gebruiken
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Chirp  $chirp
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
     public function restore(User $user, Chirp $chirp)
     {
         //
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Chirp  $chirp
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
     public function forceDelete(User $user, Chirp $chirp)
     {
         //

@@ -4,7 +4,8 @@ use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+use Inertia\Inertia; //added so I can use React for the front end
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +18,8 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
+Route::get('/', function () { //Route::get betekend dat je een get request wilt doen naar de root (/)
+    return Inertia::render('Welcome', [ //Inertia::render betekend dat je een react component wilt renderen
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
@@ -36,8 +37,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('chirps', ChirpController::class)
-    ->only(['index', 'store', 'update', 'destroy'])
-    ->middleware(['auth', 'verified']);
+Route::resource('chirps', ChirpController::class) //Route::resource betekend dat je alle routes wilt gebruiken van de ChirpController. Resource betekend dat je alle CRUD routes wilt gebruiken
+    ->only(['index', 'store', 'update', 'destroy']) //only betekend dat je alleen deze routes wilt gebruiken. Je kunt nu een Chirp aanmaken, updaten en verwijderen
+    ->middleware(['auth', 'verified']); //alleen deze routes gebruiken --> als je bent ingelogd en je email is geverifieerd
 
-require __DIR__.'/auth.php';
+require __DIR__.'/auth.php'; //require betekend dat je de file wilt gebruiken. __DIR__ betekend dat je de file wilt gebruiken van de huidige directory

@@ -1,20 +1,22 @@
 import React from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import Chirp from '@/Components/Chirp';
+import Chirp from '@/Components/Chirp'; // to accept the chirps prop and render a Chirp component for each chirp
 import InputError from '@/Components/InputError';
 import PrimaryButton from '@/Components/PrimaryButton';
 import { useForm, Head } from '@inertiajs/inertia-react';
 
-export default function Index({ auth, chirps }) {
-    const {data, setData, post, processing, reset, errors} = useForm({
+export default function Index({ auth, chirps }) { // to accept the chirps prop and render a Chirp component for each chirp
+    const {data, setData, post, processing, reset, errors} = useForm({ // useForm is a hook that allows me to easily manage form state and submit data to the server. (Hooks are a new feature in React that allow us to easily share logic between components.)
         message: '',
     });
 
-    const submit = (e) => {
+    const submit = (e) => { // to submit the form. e is the event object, which I use to prevent the default browser behavior of submitting the form.
         e.preventDefault();
         post(route('chirps.store'), {onSuccess: () => reset()});
     };
 
+    // The AuthenticatedLayout component is a layout component that wraps the page content in a common layout.
+    // In this case, the AuthenticatedLayout component renders the page header and navigation.
     return (
         <AuthenticatedLayout auth={auth}>
             <Head title="Chirps"/>
@@ -40,5 +42,3 @@ export default function Index({ auth, chirps }) {
         </AuthenticatedLayout>
     );
 }
-
-
